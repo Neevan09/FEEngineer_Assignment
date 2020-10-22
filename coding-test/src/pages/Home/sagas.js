@@ -5,10 +5,9 @@ import { REQUEST_API_DATA, GET_ORDER_DETAILS, RECEIVE_API_DATA} from './constant
 // import {fetchData} from './api'
 
 function* getApiData(action) {
-  console.log("Ation", action)
    try { 
-      const data = yield call(getOrderDetailsAPI, action);
-      
+      const data = yield call(getOrderDetailsAPI, action.orderId);
+      // console.log("orderID---", action.orderId);
       yield put(receiveApiData(data));
       console.log("action---", action);
       console.log("getApiData---", data);

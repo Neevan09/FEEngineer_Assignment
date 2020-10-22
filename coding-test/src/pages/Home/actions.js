@@ -1,15 +1,16 @@
 import { ORDER_URL } from "../../services/UrlMapperService";
 import { REQUEST_API_DATA, GET_ORDER_DETAILS, RECEIVE_API_DATA} from './constants'
 
-export const requestApiData = () => ({
+export const requestApiData = (orderId) => ({
   type: REQUEST_API_DATA,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
   },
+  orderId
 });
 
-export const getOrderDetailsAPI = async () => {
+export const getOrderDetailsAPI = orderId => {
   const postData = {
     type: GET_ORDER_DETAILS,
     headers: {
@@ -17,10 +18,9 @@ export const getOrderDetailsAPI = async () => {
       "Content-Type": "application/json",
     },
   };
-
-  const response = await fetch(`${ORDER_URL}`, postData);
-  const data = await response.json();
-  return data;
+  const response =  fetch(`${ORDER_URL(orderId)}`, postData).then(res => res.json());
+  console.log("response : ",response);
+  return response;
 };
 
 export const receiveApiData = (data) => ({ type: RECEIVE_API_DATA, data: data });

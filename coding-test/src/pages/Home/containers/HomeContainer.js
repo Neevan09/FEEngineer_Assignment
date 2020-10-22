@@ -7,7 +7,8 @@ import Home from '../../../components/Home/PageComponent'
 class HomeContainer extends Component {
 
     componentDidMount() {
-        this.props.requestApiData();
+        let orderId = 4;
+        this.props.requestApiData(orderId);
     }
 
     render() {
