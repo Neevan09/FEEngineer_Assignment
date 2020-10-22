@@ -8,9 +8,10 @@ function* getApiData(action) {
    try { 
       const data = yield call(getOrderDetailsAPI, action.orderId);
       // console.log("orderID---", action.orderId);
+      const order = { data };
       yield put(receiveApiData(data));
-      console.log("action---", action);
-      console.log("getApiData---", data);
+      // console.log("action---", action);
+      console.log("getApiData---", order.data);
    } catch (e) {
     console.log(e);  
   }

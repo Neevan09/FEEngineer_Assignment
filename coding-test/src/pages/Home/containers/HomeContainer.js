@@ -7,7 +7,7 @@ import Home from '../../../components/Home/PageComponent'
 class HomeContainer extends Component {
 
     componentDidMount() {
-        let orderId = 6;
+        let orderId = 5;
         this.props.requestApiData(orderId);
     }
 
@@ -24,7 +24,7 @@ class HomeContainer extends Component {
 //     return(<Home />);
 // }
 
-const mapStateToProps = state => ({ data: state.data });
+const mapStateToProps = state => ({ data: state });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ requestApiData }, dispatch);
 

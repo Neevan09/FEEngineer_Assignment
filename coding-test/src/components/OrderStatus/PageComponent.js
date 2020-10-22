@@ -1,7 +1,8 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 function PageComponent() {
-
+    const order = useSelector();
     console.log(' Order Status')
     return (
         <div>

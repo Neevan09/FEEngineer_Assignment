@@ -19,8 +19,8 @@ export const getOrderDetailsAPI = orderId => {
     },
   };
   const response =  fetch(`${ORDER_URL(orderId)}`, postData).then(res => res.json());
-  console.log("response : ",response);
+  // console.log("response : ",response);
   return response;
 };
 
-export const receiveApiData = (data) => ({ type: RECEIVE_API_DATA, data: data });
+export const receiveApiData = (data) => ({ type: RECEIVE_API_DATA, data });
