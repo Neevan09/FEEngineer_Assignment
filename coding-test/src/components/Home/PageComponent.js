@@ -1,47 +1,19 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import React, {useEffect} from 'react';
+import { useDispatch } from 'react-redux'
+// import { requestApiData } from "../../pages/Home/containers/actions"
 
-export default function PageComponent() {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const signInHandler = () => {
-    setAnchorEl(null);
-  };
-
-  const createAccountHandler = () => {
-    setAnchorEl(null);
-  };
-  console.log("Anchor: ", anchorEl);
-
-  return (
-    <div>
-      <Button
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        SignIn
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={signInHandler}>SignIn</MenuItem>
-        <MenuItem onClick={createAccountHandler}>Create account</MenuItem>
-      </Menu>
-    </div>
-  );
+function PageComponent(props) {
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     requestApiData();
+    // }, [dispatch])
+    return (
+        <div>
+            This is home!!
+        </div>
+    )
 }
+
+export default PageComponent
+
+
