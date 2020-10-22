@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-function PageComponent() {
-    const order = useSelector();
-    console.log(' Order Status')
+function PageComponent(props) {
+    // const order = useSelector();
+    console.log(' Order Status props:', props);
     return (
         <div>
             <h2>Order Status!!</h2>
