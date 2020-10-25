@@ -5,11 +5,17 @@ import { Provider } from "react-redux"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/PageComponent";
 import RecentlyReviewed from "./components/RecentlyReviewed/PageComponent";
-import OrderStatus from "./components/OrderStatus/PageComponent";
+import OrderStatus from "./pages/Order Status/containers/OrderStatus";
 import SavedItems from "./components/SavedItems/PageComponent";
 import HomeContainer from "./pages/Home/containers/HomeContainer";
-import store from './store'
+// import store from './store'
 
+import configureStore from './configureStore';
+import history from './utils/history';
+
+// Create redux store with history
+const initialState = {};
+const store = configureStore(initialState, history);
 
 function App() {
   return (
