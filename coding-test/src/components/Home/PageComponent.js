@@ -10,11 +10,11 @@ function PageComponent(props) {
   const { requestApiData, routerDetails, homeDetails } = props;
 
   useEffect(() => {
-    let orderId = 1;
+    let orderId = 4;
     requestApiData(orderId);
   }, []);
 
-  console.log("Home Props------------", homeDetails.home);
+  // console.log("Home Props------------", homeDetails.home);
   let objMap = new Map(Object.entries(homeDetails.home));
   return (
     <div>

@@ -32,8 +32,6 @@ const withReducer = compose(
   injectReducer({ key: 'Home', reducer: home }),
 );
 
-// const mapStateToProps = (state) => ({ data: state });
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ ...homeActions }, dispatch);
   }

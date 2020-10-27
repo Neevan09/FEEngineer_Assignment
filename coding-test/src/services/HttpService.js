@@ -1,15 +1,15 @@
 import axios from "axios";
 import { call, put, all } from "redux-saga/effects";
 
-
-
 const createAxiosService = () => {
   return axios.create({
       baseURL: sessionStorage.getItem("APIContext"),
       headers: {
           "Accept": "application/json",
           "Access-Control-Allow-Origin": "*",
-          "Content-type": "application/json"
+          "Content-type": "application/json",
+          "Access-Control-Allow-Headers": "Content-Type, api_key, Authorization",
+          "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, PATCH, OPTIONS"
       }
   });
 };
@@ -18,14 +18,10 @@ export const HttpService = createAxiosService();
 
 
 function* doApiCall(method, url, request, successCallback, errorCallback, opts = {}) {
-  // enableHTTPServiceLogs && console.log("LOG-DEBUG: function*doApiCall -> method", method);
-  // enableHTTPServiceLogs && console.log("LOG-DEBUG: function*doApiCall -> url", url);
-  const { showLoading = true, parseResponse = false, showErrorBanner = true, timeout = 60000, baseURL, closeLoadingOnSuccess = false, headers, withCredentials } = opts;
-
+  const { parseResponse = false, timeout = 60000, baseURL, headers, withCredentials } = opts;
   
   const axiosOptions = { baseURL, timeout, headers, withCredentials };
   try {
-      // if (showLoading) yield put(appLoaderActions.show());
       let res;
       switch (method) {
           case "GET":
@@ -45,18 +41,11 @@ function* doApiCall(method, url, request, successCallback, errorCallback, opts =
               break;
       }
       const response = parseResponse ? res.data.payload : res;
-      // enableHTTPServiceLogs && console.log("LOG-DEBUG: function*doApiCall -> response", url, response);
-      // if (closeLoadingOnSuccess) yield put(appLoaderActions.hide());
-      if (successCallback) yield successCallback(response);
+          if (successCallback) yield successCallback(response);
   } catch (error) {
-      // enableHTTPServiceLogs && console.log("LOG-DEBUG: function*doApiCall -> error", url, error);
-      // if (closeLoadingOnSuccess) yield put(appLoaderActions.hide());
-      // if (showErrorBanner) yield put(appMessageActions.addAppMessage(parseErrorMessages(error), "error",true,true,true));
-      if (errorCallback) yield errorCallback(error);
-  } finally {
-      // enableHTTPServiceLogs && console.log("LOG-DEBUG: function*doApiCall -> finally", url);
-      // if (showLoading && !closeLoadingOnSuccess) yield put(appLoaderActions.hide());
-  }
+       if (errorCallback) yield errorCallback(error);
+  } 
+  
 }
 
 /**
