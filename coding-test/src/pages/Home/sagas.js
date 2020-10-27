@@ -1,28 +1,28 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
-
-import { requestApiData, getOrderDetailsAPI,  receiveApiData } from './actions' 
-import { REQUEST_API_DATA, GET_ORDER_DETAILS, RECEIVE_API_DATA} from './constants'
-// import {fetchData} from './api'
+import { call, put, takeLatest } from "redux-saga/effects";
+import { getUserDetailsAPI } from "./actions";
+import * as USER from './constants';
 
 function* getApiData(action) {
-   try { 
-     debugger
-      const apiResponse = yield call(getOrderDetailsAPI, action.orderId);
-      const order = { apiResponse };
+  yield put({ type: USER.ASYNC_FETCH });
+  try {
+    const apiResponse = yield call(getUserDetailsAPI, action.orderId);
+    const userInfo = apiResponse.data.data;
+    const companyInfo = apiResponse.data.ad;
+    const data = { userInfo, companyInfo };
 
-      console.log("getApiData---apiResponse", apiResponse);
-      if(apiResponse){
-        // yield put(receiveApiData(apiResponse));
-        yield put({ type: RECEIVE_API_DATA, response: apiResponse.data.data });
-      }else{
-        console.log("getApiData--- Error", apiResponse);
-      }
-   } catch (e) {
-    console.log(e);  
+    if (apiResponse) {
+      yield put({ type: USER.USER_RESPONSE_RECEIVED, response: apiResponse.data.data });
+      yield put({ type: USER.COMPANY_RESPONSE_RECEIVED, response: companyInfo });
+    } else {
+      yield put({ type: USER.PAGE_LOAD_API_ERROR });
+    }
+  } catch (e) {
+    console.log(e);
+    yield put({ type: USER.PAGE_LOAD_API_ERROR });
   }
+  yield put({ type: USER.ASYNC_FETCH_SUCCESS });
 }
 
 export default function* mySaga() {
-  yield takeLatest(REQUEST_API_DATA, getApiData);
+  yield takeLatest(USER.LOAD_USER_API, getApiData);
 }
- 

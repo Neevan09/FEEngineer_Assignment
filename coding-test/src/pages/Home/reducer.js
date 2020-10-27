@@ -1,10 +1,11 @@
-import { RECEIVE_API_DATA } from "./constants";
+import { USER_RESPONSE_RECEIVED } from "./constants";
 import {
     ASYNC_FETCH,
     ASYNC_FETCH_FAILURE,
     ASYNC_FETCH_SUCCESS,
     ERR_RECEIVED,
-    PAGE_LOAD_API_ERROR
+    PAGE_LOAD_API_ERROR,
+    COMPANY_RESPONSE_RECEIVED
   } from './constants';
 
 const asyncCallStatusInit = {
@@ -13,24 +14,23 @@ const asyncCallStatusInit = {
   showErrNotification: false,
   errNotificationMsg: "",
   pageLoadError: false,
-  isOrderSuccess: false,
   isOrderFailure: false,
 };
 
-//   export const home = (state = {}, action) => {
-//     switch (action.type) {
-//       case RECEIVE_API_DATA: {
-//         return { ...state, ...action.response };
-//       }
-//       default:
-//         return state;
-//     }
-//   };
-
 export const home = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_API_DATA:
+    case USER_RESPONSE_RECEIVED:
       return { ...state, ...action.response };
+    default:
+      return state;
+  }
+};
+
+export const company = (state = {}, action) => {
+  switch (action.type) {
+    case COMPANY_RESPONSE_RECEIVED: {
+      return { ...state, ...action.response };
+    }
     default:
       return state;
   }
@@ -48,7 +48,6 @@ export const asyncCallStatus = (state = asyncCallStatusInit, action) => {
       return {
         ...state,
         isFetching: false,
-        isOrderSuccess: true,
         error: false,
       };
     case ASYNC_FETCH_FAILURE:

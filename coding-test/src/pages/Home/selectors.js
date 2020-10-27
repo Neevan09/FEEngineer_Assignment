@@ -3,14 +3,22 @@ import { createSelector } from 'reselect';
 const selectAsyncCallStatus = (state) => state.get('asyncCallStatus') || {};
 export const selectState = (state) => state;
 
-export const getOrderDetails = createSelector(selectState, (state) => {
-    const originalOrder = state.get('Home');
-    const order = {
-      home: originalOrder,
+export const getUserDetails = createSelector(selectState, (state) => {
+    const userInfo = state.get('UserInfo');
+    const user = {
+      user: userInfo,
     };
-    return order;
+    return user;
   });
   
+
+  export const getCompanyDetails = createSelector(selectState, (state) => {
+    const companyInfo = state.get('CompanyInfo');
+    const company = {
+      company: companyInfo,
+    };
+    return company;
+  });
 
   export const routerDetails = createSelector(selectState, (state) => {
     const router = state.get('router');

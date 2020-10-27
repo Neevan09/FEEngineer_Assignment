@@ -1,25 +1,23 @@
 import React, { Component } from "react";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
-import { requestApiData, getOrderDetailsAPI } from "../actions";
-import Home from "../../../components/Home/PageComponent";
 import { withRouter } from "react-router-dom";
 import * as homeActions from "../actions";
 import saga from "../sagas";
 import injectSaga from '../../../utils/injectSaga';
 import injectReducer from "../../../utils/injectReducer";
 import { reducer as reduxForm } from 'redux-form/immutable';
-import { asyncCallStatus, home } from "../reducer";
+import { asyncCallStatus, home, company } from "../reducer";
 import PageComponent from '../../../components/Home/PageComponent'
 import * as homeSelectors from '../selectors';
 
 const mapStateToProps = (state) => {
-  const homeDetails = homeSelectors.getOrderDetails(state);
+  const userDetails = homeSelectors.getUserDetails(state);
   const asyncCallStatusObj = state.toJS() ? state.toJS().asyncCallStatus : null;
   const routerDetails = homeSelectors.routerDetails(state);
 
   return {
-    homeDetails,
+    userDetails,
     routerDetails,
     ...asyncCallStatusObj,
   };
@@ -29,7 +27,8 @@ const withSaga = injectSaga({ key: 'home', saga });
 
 const withReducer = compose(
   injectReducer({ key: "asyncCallStatus", reducer: asyncCallStatus }),
-  injectReducer({ key: 'Home', reducer: home }),
+  injectReducer({ key: 'UserInfo', reducer: home }),
+  injectReducer({ key: 'CompanyInfo', reducer: company }),
 );
 
 function mapDispatchToProps(dispatch) {

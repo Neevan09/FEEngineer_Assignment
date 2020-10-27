@@ -1,31 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { get, isEmpty } from "lodash";
 
-function PageComponent(props) {
+const PageComponent = (props) => {
   // const order = useSelector();
 
-  const { homeDetails } = props;
-  const avatar = get(homeDetails, "home.avatar") || "";
-  const email = get(homeDetails, "home.email") || "";
-  const firstName = get(homeDetails, "home.first_name") || "";
-  const lastName = get(homeDetails, "home.last_name") || "";
-  const userId = get(homeDetails, "home.id") || "";
+  const { userDetails, companyDetails, history } = props;
+  const avatar = get(userDetails, "user.avatar") || "";
+  const firstName = get(userDetails, "user.first_name") || "";
+  const lastName = get(userDetails, "user.last_name") || "";
+  const companyName = get(companyDetails, "company.company") || "";
+  const companyUrl = get(companyDetails, "company.url") || "";
 
-  console.log("homeDetails", homeDetails)
+  const navigationHandler = () => {
+    window.open(companyUrl);
+    // history.push('/saved-items');
+  };
 
   return (
     <div>
       <img src={avatar} alt="" />
       <h2>First Name: {firstName}</h2>
       <h2>Last Name: {lastName}</h2>
-      <h2>User ID: {userId}</h2>
-      <h2>Email: {email}</h2>
-      <h2>Order Status!!</h2>
-      <h2>Order Id: </h2>
-      <h2>Order Quantity</h2>
-      <h2>Shipped date</h2>
-      <h2>Order Status</h2>
+      <h2>Company Name: {companyName}</h2>
+      <button onClick={navigationHandler}>Link</button>
     </div>
   );
 }

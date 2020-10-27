@@ -14,12 +14,14 @@ import PageComponent from '../../../components/OrderStatus/PageComponent'
 import * as homeSelectors from '../../Home/selectors';
 
 const mapStateToProps = (state) => {
-  const homeDetails = homeSelectors.getOrderDetails(state);
+  const userDetails = homeSelectors.getUserDetails(state);
+  const companyDetails = homeSelectors.getCompanyDetails(state);
   const asyncCallStatusObj = state.toJS() ? state.toJS().asyncCallStatus : null;
   const routerDetails = homeSelectors.routerDetails(state);
 
   return {
-    homeDetails,
+    userDetails,
+    companyDetails,
     routerDetails,
     ...asyncCallStatusObj,
   };
@@ -29,7 +31,6 @@ const withSaga = injectSaga({ key: 'home', saga });
 
 const withReducer = compose(
   injectReducer({ key: "asyncCallStatus", reducer: asyncCallStatus }),
-  injectReducer({ key: 'Home', reducer: home }),
 );
 
 function mapDispatchToProps(dispatch) {

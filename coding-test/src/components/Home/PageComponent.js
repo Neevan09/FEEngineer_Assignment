@@ -1,58 +1,36 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-// import { requestApiData } from "../../pages/Home/containers/actions"
+// import { useDispatch } from "react-redux";
+import { get } from "lodash";
 
-function PageComponent(props) {
+const PageComponent = props =>{
   // const dispatch = useDispatch();
   // useEffect(() => {
   //     requestApiData();
   // }, [dispatch])
-  const { requestApiData, routerDetails, homeDetails } = props;
 
+  const { requestApiData, routerDetails, userDetails, isFetching } = props;
+  const avatar = get(userDetails, "user.avatar") || "";
+  const email = get(userDetails, "user.email") || "";
+  const firstName = get(userDetails, "user.first_name") || "";
+  const lastName = get(userDetails, "user.last_name") || "";
+  const userId = get(userDetails, "user.id") || "";
+    
   useEffect(() => {
     let orderId = 4;
     requestApiData(orderId);
   }, []);
 
-  // console.log("Home Props------------", homeDetails.home);
-  let objMap = new Map(Object.entries(homeDetails.home));
   return (
     <div>
-      This is home!!
-      {/* {
-        // caching map
-        //
-        objMap.forEach((item, key) => {
-            // do something with an item
-            console.log(key, item);
-
-            return (
-                <div key={item}>adssa
-                  <img src={item} alt="" />
-                  <h4>First Name: {item}</h4>
-                  <h4>Last Name: {item}</h4>
-                  <h4>{item}</h4>
-                  <h4>{item}</h4>
-                </div>
-              );
-          })
-      } */}
-      {objMap.forEach((key, value) => {
-        // console.log("VAlue: ", value);
-    
-        // console.log("VAlue of person: ", person[index]);
-        return (
-          <div key={value}>adsasdsa
-          {    console.log("key: ", key)}
-          <h2>Name: {key}</h2>
-            {/* <img src={person.avatar} alt="" />
-            <h4>{person.first_name}</h4>
-            <h4>{person.id}</h4>
-            <h4>{person.last_name}</h4>
-            <h4>{person}</h4> */}
-          </div>
-        );
-      })}
+      {!isFetching && (
+        <>
+          <img src={avatar} alt="" />
+          <h2>First Name: {firstName}</h2>
+          <h2>Last Name: {lastName}</h2>
+          <h2>User ID: {userId}</h2>
+          <h2>Email: {email}</h2>
+        </>
+      )}
     </div>
   );
 }
